@@ -6,8 +6,9 @@ using UnityEngine.Serialization;
 public class NewtonGravity : MonoBehaviour
 {
     private const float MIN_DISTANCE = 0.1f;
-    
-    [SerializeField] private Vector3 m_velocity    = new Vector3(1, -1, 0.2f);
+
+    [SerializeField] private Vector3 m_pos_start   = new Vector3(0, 5, 0);
+    [SerializeField] private Vector3 m_velocity    = new Vector3(5, 0, 0);
     
     [SerializeField] private Vector3 m_pos_target  = new Vector3(0, 0, 0);
     [SerializeField] private float   m_mass_target = 700f;
@@ -19,6 +20,7 @@ public class NewtonGravity : MonoBehaviour
     void Start()
     {
         G_MASS_TARGET = G * m_mass_target;
+        transform.position = m_pos_start;
     }
 
     void FixedUpdate()
