@@ -12,6 +12,11 @@ public class MovementAgent : MonoBehaviour
 
     private const float TOLERANCE = 0.1f;
 
+    public void SetTarget(Vector3 target)
+    {
+        m_Target = target;
+    }
+
     void Update()
     {
         float distance = (m_Target - transform.position).magnitude;
