@@ -41,12 +41,21 @@ namespace Field
         /// Checks if a node could be occupied and occupies if it can do so.
         /// </summary>
         /// <param name="coordinate"> The node to be occupied </param>
-        /// <returns> True if the node was occupied, false otherwise </returns>
-        public bool TryOccupyNode(Vector2Int coordinate)
+        /// <param name="occupy"> Bool telling whether to occupy or de-occupy the node </param>
+        /// <returns> True if the de-/occupation has been completed, false otherwise </returns>
+        public bool TryOccupyNode(Vector2Int coordinate, bool occupy)
         {
+            Node node = GetNode(coordinate);
+
+            if (!occupy)
+            {
+                node.IsOccupied = false;
+                UpdatePathfinding();
+                return true;
+            }
+            
             if (!m_Pathfinding.CanOccupy(coordinate)) return false;
             
-            Node node = GetNode(coordinate);
             node.IsOccupied = true;
             UpdatePathfinding();
             

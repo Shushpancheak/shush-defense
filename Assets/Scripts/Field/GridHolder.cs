@@ -90,7 +90,12 @@ namespace Field
 
             if (Input.GetMouseButtonDown(0))
             {
-                m_Grid.TryOccupyNode(new Vector2Int(x, y));
+                m_Grid.TryOccupyNode(new Vector2Int(x, y), true);
+            }
+            
+            if (Input.GetMouseButtonDown(1))
+            {
+                m_Grid.TryOccupyNode(new Vector2Int(x, y), false);
             }
         }
 
