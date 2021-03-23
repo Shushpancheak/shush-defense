@@ -120,9 +120,10 @@ namespace Field
         private void BuildPaths()
         {
             Queue<Vector2Int> queue = new Queue<Vector2Int>();
-
+            
             queue.Enqueue(m_Target);
             m_Grid.GetNode(m_Target).PathWeight = 0f;
+            m_Grid.GetNode(m_Target).NextNode = null;
 
             while (queue.Count > 0)
             {

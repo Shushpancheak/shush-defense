@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25bbdb329f84341b2203477f6ce55ef, type: 3}
+  m_Name: Flying Enemy Asset
+  m_EditorClassIdentifier: 
+  StartHealth: 100
+  IsFlyingEnemy: 1
+  ViewPrefab: {fileID: 7518999709262838473, guid: 2f5f7692dcb9fe140b8baa164283f8d4, type: 3}
