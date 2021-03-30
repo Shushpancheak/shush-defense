@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Enemy;
 using UnityEngine;
 
 namespace Field
@@ -13,7 +14,8 @@ namespace Field
         [SerializeField] private int m_GridWidth;
         [SerializeField] private int m_GridHeight;
 
-        [SerializeField] private MovementAgent m_MovementAgent;
+        // TODO change to appropriate MovementAgent
+        [SerializeField] private GridMovementAgent m_MovementAgent;
 
         [SerializeField] private float m_NodeSize;
 
@@ -82,7 +84,8 @@ namespace Field
 
             if (!Input.GetMouseButtonDown(0)) return;
 
-            m_MovementAgent?.SetTarget(node_pos);
+            // TODO MovementAgent.setTarget
+            // m_MovementAgent?.(node_pos);
         }
 
         private void OnValidate()

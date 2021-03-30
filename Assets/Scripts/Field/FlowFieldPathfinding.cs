@@ -73,10 +73,8 @@ namespace Field
             return false;
         }
 
-        public bool CanOccupy(Vector2Int coord)
-        { 
-            var node = m_Grid.GetNode(coord);
-
+        public bool CanOccupy(Node node)
+        {
             if (node.IsOccupied)
             {
                 return false;
@@ -103,6 +101,12 @@ namespace Field
                 node.OccupationAvailability = OccupationAvailability.CanNotOccupy;
                 return false;
             }
+        }
+        
+        public bool CanOccupy(Vector2Int coord)
+        { 
+            var node = m_Grid.GetNode(coord);
+            return CanOccupy(node);
         }
 
         private void ResetNodes()

@@ -86,10 +86,10 @@ namespace Field
                 int x = (int) (difference.x / m_NodeSize);
                 int y = (int) (difference.z / m_NodeSize);
                 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    m_Grid.TryOccupyNode(new Vector2Int(x, y), true);
-                }
+                //if (Input.GetMouseButtonDown(0))
+                //{
+                //    m_Grid.TryOccupyNode(new Vector2Int(x, y), true);
+                //}
             
                 if (Input.GetMouseButtonDown(1))
                 {

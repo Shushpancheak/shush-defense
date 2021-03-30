@@ -11,6 +11,9 @@ namespace Field
 
         private int m_Width;
         private int m_Height;
+        private Vector3 m_Offset;
+
+        private float m_NodeSize;
         
         private Vector2Int m_StartCoordinate;
         private Vector2Int m_TargetCoordinate;
@@ -26,6 +29,8 @@ namespace Field
         {
             m_Width = width;
             m_Height = height;
+            m_Offset = offset;
+            m_NodeSize = nodeSize;
             
             m_Nodes = new Node[m_Width, m_Height];
 
@@ -43,6 +48,40 @@ namespace Field
             m_Pathfinding = new FlowFieldPathfinding(this, target, start);
             
             m_Pathfinding.UpdateField();
+        }
+
+        public Node GetNodeAtPoint(Vector3 point)
+        {
+            Vector3 difference = point - m_Offset;
+
+            int x = (int) (difference.x / m_NodeSize);
+            int y = (int) (difference.z / m_NodeSize);
+
+            return m_Nodes[x, y];
+        }
+
+        private bool InCircle(Vector3 point, Vector3 center, float radius)
+        {
+            return (point - center).magnitude <= radius;
+        }
+        
+        public List<Node> GetNodesInCircle(Vector3 point, float radius)
+        {
+            List<Node> result = new List<Node>();
+            
+            for (float cur_x = point.x - radius; cur_x <= point.x + radius; cur_x += m_NodeSize)
+            {
+                for (float cur_z = point.z - radius; cur_z <= point.z + radius; cur_z += m_NodeSize)
+                {
+                    Vector3 cur_point = new Vector3(cur_x, point.y, cur_z);
+                    if (InCircle(cur_point, point, radius))
+                    {
+                        result.Add(GetNodeAtPoint(cur_point));
+                    }
+                }
+            }
+
+            return result;
         }
         
         public Node GetStartNode()
@@ -75,6 +114,39 @@ namespace Field
             return m_SelectedNode;
         }
 
+        public bool CanOccupy(Vector2Int coord)
+        {
+            return m_Pathfinding.CanOccupy(coord);
+        }
+        
+        public bool CanOccupy(Node node)
+        {
+            return m_Pathfinding.CanOccupy(node);
+        }
+
+        /// <summary>
+        /// Checks if a node could be occupied and occupies if it can do so.
+        /// </summary>
+        /// <param name="node"> The node to be occupied </param>
+        /// <param name="occupy"> Bool telling whether to occupy or de-occupy the node </param>
+        /// <returns> True if the de-/occupation has been completed, false otherwise </returns>
+        public bool TryOccupyNode(Node node, bool occupy)
+        {
+            if (!occupy)
+            {
+                node.IsOccupied = false;
+                UpdatePathfinding();
+                return true;
+            }
+            
+            if (!m_Pathfinding.CanOccupy(node)) return false;
+            
+            node.IsOccupied = true;
+            UpdatePathfinding();
+            
+            return true;
+        }
+        
         /// <summary>
         /// Checks if a node could be occupied and occupies if it can do so.
         /// </summary>
@@ -84,21 +156,7 @@ namespace Field
         public bool TryOccupyNode(Vector2Int coordinate, bool occupy)
         {
             Node node = GetNode(coordinate);
-
-            if (!occupy)
-            {
-                node.IsOccupied = false;
-                UpdatePathfinding();
-                return true;
-            }
-            
-            if (!m_Pathfinding.CanOccupy(coordinate)) return false;
-            
-            node.IsOccupied = true;
-            UpdatePathfinding();
-            
-            return true;
-
+            return TryOccupyNode(node, occupy);
         }
         
         public Node GetNode(Vector2Int coordinate)
