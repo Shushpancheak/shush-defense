@@ -50,23 +50,36 @@ namespace Field
             m_Pathfinding.UpdateField();
         }
 
-        public Node GetNodeAtPoint(Vector3 point)
+        Vector2Int PointToVec2I(Vector3 point)
         {
             Vector3 difference = point - m_Offset;
 
             int x = (int) (difference.x / m_NodeSize);
             int y = (int) (difference.z / m_NodeSize);
-
-            return m_Nodes[x, y];
+            
+            return new Vector2Int(x, y);
+        }
+        
+        public Node GetNodeAtPoint(Vector3 point)
+        {
+            var v = PointToVec2I(point);
+            return m_Nodes[v.x, v.y];
         }
 
         private bool InCircle(Vector3 point, Vector3 center, float radius)
         {
             return (point - center).magnitude <= radius;
         }
+
+        private bool InGrid(Vector3 point)
+        {
+            var v = PointToVec2I(point);
+            return v.x >= 0 && v.y >= 0 && v.x < m_Width && v.y < m_Height;
+        }
         
         public List<Node> GetNodesInCircle(Vector3 point, float radius)
         {
+            float node_size_sqr = m_NodeSize * Mathf.Sqrt(2);
             List<Node> result = new List<Node>();
             
             for (float cur_x = point.x - radius; cur_x <= point.x + radius; cur_x += m_NodeSize)
@@ -74,7 +87,7 @@ namespace Field
                 for (float cur_z = point.z - radius; cur_z <= point.z + radius; cur_z += m_NodeSize)
                 {
                     Vector3 cur_point = new Vector3(cur_x, point.y, cur_z);
-                    if (InCircle(cur_point, point, radius))
+                    if (InCircle(cur_point, point, radius) && InGrid(cur_point))
                     {
                         result.Add(GetNodeAtPoint(cur_point));
                     }

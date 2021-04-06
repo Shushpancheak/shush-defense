@@ -36,5 +36,20 @@ namespace Turret.Weapon
 
             return closestEnemy;
         }
+
+        public static HashSet<EnemyData> GetEnemies(List<Node> nodes)
+        {
+            var res = new HashSet<EnemyData>();
+            
+            foreach (var node in nodes)
+            {
+                foreach (var enemyData in node.EnemyDatas) 
+                {
+                    res.Add(enemyData);
+                }
+            }
+
+            return res;
+        }
     }
 }
