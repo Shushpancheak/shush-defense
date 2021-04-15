@@ -20,6 +20,12 @@ namespace Enemy
         
         // TODO on finalization, delete enemy data from standing node.
 
+        public override void Die()
+        {
+            m_StandingNode?.EnemyDatas.Remove(m_EnemyData);
+            m_Speed = 0;
+        }
+
         public GridMovementAgent(EnemyData enemyData, float speed, Transform transform, Grid grid) : base(enemyData)
         {
             m_Speed = speed;

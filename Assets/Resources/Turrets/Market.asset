@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Market
   m_EditorClassIdentifier: 
   TurretAssets:
+  - {fileID: 11400000, guid: 39efc6dbd9b997f46a79a72969b6db61, type: 2}
+  - {fileID: 11400000, guid: d4712bbad19ffbc46b15dbfd89d35cd7, type: 2}
+  - {fileID: 11400000, guid: cdc01d11abd88d24490165c980af87b7, type: 2}
   - {fileID: 11400000, guid: 24f7cb5a6e46e154ead1ae1ebcfdac3e, type: 2}
   - {fileID: 11400000, guid: ae883d86952649c448e67343bb4b5e91, type: 2}
-  - {fileID: 11400000, guid: cdc01d11abd88d24490165c980af87b7, type: 2}
-  - {fileID: 11400000, guid: d4712bbad19ffbc46b15dbfd89d35cd7, type: 2}

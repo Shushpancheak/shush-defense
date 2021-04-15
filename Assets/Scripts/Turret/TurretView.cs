@@ -9,8 +9,12 @@ namespace Turret
         
         [SerializeField]
         private Transform m_Tower;
+
+        [SerializeField]
+        private Animator m_Animator;
         
         private TurretData m_Data;
+        private static readonly int Shoot = Animator.StringToHash("Shoot");
 
         public TurretData Data => m_Data;
 
@@ -26,6 +30,11 @@ namespace Turret
         {
             point.y = m_Tower.position.y;
             m_Tower.LookAt(point);
+        }
+
+        public void AnimateShoot()
+        {
+            m_Animator.SetTrigger(Shoot);
         }
     }
 }

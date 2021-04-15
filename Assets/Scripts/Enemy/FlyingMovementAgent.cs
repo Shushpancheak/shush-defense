@@ -16,6 +16,12 @@ namespace Enemy
 
         private Grid m_Grid;
 
+
+        public override void Die()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public FlyingMovementAgent(EnemyData enemyData, float speed, Transform transform, Grid grid) : base(enemyData)
         {
             m_Speed = speed;

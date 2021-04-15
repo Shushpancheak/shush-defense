@@ -10,5 +10,6 @@ namespace Enemy
         }
 
         public abstract void TickMovement();
+        public abstract void Die();
     }
 }

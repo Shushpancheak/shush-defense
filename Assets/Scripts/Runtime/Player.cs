@@ -39,5 +39,10 @@ namespace Runtime
         {
             m_TurretDatas.Add(data);
         }
+
+        public void EnemyDied(EnemyData data)
+        {
+            m_EnemyDatas.Remove(data);
+        }
     }
 }
